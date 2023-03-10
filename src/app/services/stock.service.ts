@@ -11,21 +11,21 @@ export class StockService {
 
   constructor(private http: HttpClient) { }
 
-  getCourses(): Observable<Stock[]> {
-    return this.http.get<Stock[]>('http://localhost:9000/api/courses');
+  getStockes(): Observable<Stock[]> {
+    return this.http.get<Stock[]>('http://localhost:9000/api/stockes');
   }
 
-  updatecourse(course: Stock) {  
-    return this.http.put('/api/courses/'+ course.id, course);
+  updatestocke(stock: Stock) {
+    return this.http.put('/api/stockes/' + stock.id, stock);
   }
 
-  updateCourseWithExtraHeaderPrams(course: Stock) {   
-    let myHeader= new HttpHeaders().set("X-Auth","userId"); 
-    return this.http.put('/api/courses/'+ course.id, course, {headers: myHeader});
+  updateStockesWithExtraHeaderPrams(stock: Stock) {
+    let myHeader = new HttpHeaders().set("X-Auth", "userId");
+    return this.http.put('/api/stockes/' + stock.id, stock, { headers: myHeader });
   }
 
-  deletecourse(index: number) {  
-    return this.http.delete('http://localhost:9000/api/courses/'+ index);
+  deleteStocke(index: number) {
+    return this.http.delete('http://localhost:9000/api/stockes/' + index);
   }
 
 }

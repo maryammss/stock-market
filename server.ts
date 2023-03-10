@@ -1,23 +1,23 @@
 import * as express from 'express';
-import {Application} from "express";
-import {getAllCourses} from './server/get-courses.route';
-import {saveCourse} from './server/save-course.route';
-import {deleteCourse} from './server/delete-course.route';
+import { Application } from "express";
+import { getAllStocks } from './server/get-stockes.route';
+import { saveStock } from './server/save-stock.route';
+import { deleteStock } from './server/delete-stock.route';
 const cors = require('cors');
 
 const bodyParser = require('body-parser');
 
 const app: Application = express();
 
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 app.use(bodyParser.json());
 
-app.route('/api/courses').get(getAllCourses);
+app.route('/api/stockes').get(getAllStocks);
 
-app.route('/api/courses/:id').put(saveCourse);
+app.route('/api/stockes/:id').put(saveStock);
 
-app.route('/api/courses/:id').delete(deleteCourse);
+app.route('/api/stockes/:id').delete(deleteStock);
 
 const httpServer = app.listen(9000, () => {
-    console.log("HTTP REST API Server running at http://localhost:9000" );
+    console.log("HTTP REST API Server running at http://localhost:9000");
 });

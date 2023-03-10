@@ -1,24 +1,22 @@
-<p>stock-list works!</p>
-
 <div style="margin: 30px">
-    <!-- <input
-      type="text"
-      [(ngModel)]="searchString"
-      placeholder="Search by name or country"
-    /> -->
-    <h2>Regular HTML Table</h2>
-    <table>
-      <tr>
-        <th>S.no</th>
-        <th>Name</th>
-        <th>purchasePrice</th>
-      </tr>
-      <tr
-        *ngFor="let student of items$; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ student.name }}</td>
-        <td>{{ student.purchasePrice }}</td>
-        <td><button (click)="deleteStock(i)">Delete stock</button></td>
-      </tr>
-    </table>
-  </div>
+  <h2>Stock Information</h2>
+  <table>
+    <tr>
+      <th>S.no</th>
+      <th>Stock</th>
+      <th>Purchase Price</th>
+      <th>Current Price</th>
+      <th>Indicator</th>
+    </tr>
+    <tr *ngFor="let stock of items$; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ stock.name }}</td>
+      <td>{{ stock.purchasePrice }}</td>
+      <td>{{ stock.currentPrice }}</td>
+      <td>{{ stock.indicator }}%
+        <img width="15px" [src]="iconUrl(stock.indicator)">
+      </td>
+      <td><button (click)="deleteStock(i)">Delete stock</button></td>
+    </tr>
+  </table>
+</div>

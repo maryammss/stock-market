@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Stock } from 'src/app/models/stock';
+import { StockDetail } from '../models/stock-detail';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,13 @@ export class StockService {
     return this.http.put('/api/stockes/' + stock.id, stock, { headers: myHeader });
   }
 
-  deleteStocke(index: number) {
-    return this.http.delete('http://localhost:9000/api/stockes/' + index);
+  deleteStocke(id: number) {
+    return this.http.delete('http://localhost:9000/api/stockes/' + id);
+  }
+
+  
+  getStockDetails(stockId: number): Observable<StockDetail[]> {
+    return this.http.get<StockDetail[]>('http://localhost:9000/api/details/' + stockId);
   }
 
 }

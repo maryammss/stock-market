@@ -1,11 +1,9 @@
 import {Request, Response} from 'express';
 import { STOCKES } from '../src/stock-db';
 
-
 export function getAllStocks(req: Request, res: Response) {
     res.status(200).json(Object.values(STOCKES));
 }
-
 
 export function getStockById(req: Request, res: Response) {
 
@@ -17,3 +15,5 @@ export function getStockById(req: Request, res: Response) {
 
     res.status(200).json(stock);
 }
+
+

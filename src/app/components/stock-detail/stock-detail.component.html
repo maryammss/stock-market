@@ -1,0 +1,19 @@
+<ng-container *ngIf="showTable()">
+  <h2>{{stock?.name}} Detail</h2>
+  <table>
+    <tr>
+      <th>Share Counts</th>
+      <th>Purchase Date</th>
+      <th *ngIf="!isMobileDevice">Purchase Price</th>
+      <th *ngIf="!isMobileDevice">Current Price</th>
+      <th>Profit</th>
+    </tr>
+    <tr *ngFor="let stockDetail of details$;">
+      <td>{{ stockDetail.shareCounts }}</td>
+      <td>{{ stockDetail.purchaseDate }}</td>
+      <td *ngIf="!isMobileDevice">{{ stockDetail.purchasePrice }}</td>
+      <td *ngIf="!isMobileDevice">{{ stockDetail.currentPrice }}</td>
+      <td>{{ stockDetail.profit }}</td>
+    </tr>
+  </table>
+</ng-container>

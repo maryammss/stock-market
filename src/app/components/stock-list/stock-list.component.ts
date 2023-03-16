@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Stock } from '../../models/stock';
-import { HttpClient } from '@angular/common/http';
 import { StockService } from '../../services/stock.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stock-list',
@@ -12,17 +12,20 @@ export class StockListComponent implements OnInit {
 
   isMobileDevice = false;
   items$: Stock[] = [];
-  constructor(private http: HttpClient, private stockService: StockService) { }
+  subscription$: Subscription = new Subscription;
+  selectedStock: Stock | undefined;
+
+  constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
     this.checkIfMobileDevice();
-    this.stockService.getStockes().subscribe(stockes => {
+    this.subscription$ = this.stockService.getStockes().subscribe(stockes => {
       this.items$ = stockes;
     });
   }
 
-  deleteStock(index: number) {
-    this.stockService.deleteStocke(index).subscribe(
+  deleteStock(id: number) {
+    this.stockService.deleteStocke(id).subscribe(
       (stockes: any) => {
         this.items$ = stockes;
       });
@@ -31,13 +34,22 @@ export class StockListComponent implements OnInit {
   iconUrl(indicator: number) {
     if (indicator == 0)
       return ''
-    return (indicator > 0) ? "../../../assets/images/increase-arrow.png" : "../../../assets/images/decrease-arrow.png";
+    return (indicator > 0) ? "../../../assets/images/increase-arrow.png" :
+      "../../../assets/images/decrease-arrow.png";
   }
 
-  checkIfMobileDevice(){
+  checkIfMobileDevice() {
     let navDetail = navigator.userAgent;
     let regexp = /android|iphone|kindle|ipad/i;
     this.isMobileDevice = regexp.test(navDetail);
+  }
+
+  showStockDetail(stock: Stock){
+    this.selectedStock = stock;
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 
 }

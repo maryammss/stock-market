@@ -1,22 +1,24 @@
-<div style="margin: 30px">
+<div style="margin: 30px" *ngIf="items$">
   <h2>Stock Information</h2>
   <table>
     <tr>
-      <th>S.no</th>
       <th>Stock</th>
-      <th>Purchase Price</th>
-      <th>Current Price</th>
+      <th *ngIf="!isMobileDevice">Purchase Price</th>
+      <th *ngIf="!isMobileDevice">Current Price</th>
       <th>Indicator</th>
     </tr>
     <tr *ngFor="let stock of items$; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ stock.name }}</td>
-      <td>{{ stock.purchasePrice }}</td>
-      <td>{{ stock.currentPrice }}</td>
-      <td>{{ stock.indicator }}%
+      <td (click)="showStockDetail(stock)">{{ stock.name }}</td>
+      <td *ngIf="!isMobileDevice">{{ stock.purchasePrice }}</td>
+      <td *ngIf="!isMobileDevice">{{ stock.currentPrice }}</td>
+      <td>
+        {{ stock.indicator }}%
         <img width="15px" [src]="iconUrl(stock.indicator)">
       </td>
-      <td><button (click)="deleteStock(i)">Delete stock</button></td>
+      <td>
+        <button (click)="deleteStock(stock.id)">Delete</button>
+      </td>
     </tr>
   </table>
+  <app-stock-detail [isMobileDevice]="isMobileDevice" [stock]="selectedStock"></app-stock-detail>
 </div>
